@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="main.css" />
+	<script src="scripts.js"></script>
+</head>
+
+<body>
+	<h1>Waves per elite</h1>
+
+	<table>
+		<tr id="table-row-header">
+			<th></th>
+			<th>Core 1</th>
+		</tr>
+		<tr id="table-row-type">
+			<th>Type</th>
+			<td>
+				<select name="type">
+					<option value="progress">Elite Bait</option>
+					<option value="size">Group Expand</option>
+					<option value="other">Other</option>
+				</select>
+			</td>
+		</tr>
+		<tr id="table-row-rarity">
+			<th>Rarity</th>
+			<td>
+				<select name="rarity">
+					<option value="0">Common</option>
+					<option value="1">Rare</option>
+					<option value="2">Epic</option>
+					<option value="3">Legendary</option>
+					<option value="4">Chaotic</option>
+				</select>
+			</td>
+		</tr>
+		<tr id="table-row-progress">
+			<th>Progress</th>
+			<td><input type="number" name="progress" /></td>
+		</tr>
+		<tr id="table-row-size">
+			<th>Group Size</th>
+			<td><input type="number" name="size" /></td>
+		</tr>
+	</table>
+
+	<button type="button" onclick="calculate()">Calculate</button>
+
+	<p id="current-waves"></p>
+
+	<table>
+		<tr>
+			<th></th>
+			<th>Current total</th>
+			<th>Next breakpoint</th>
+		</tr>
+		<tr>
+			<th>Progress</th>
+			<td id="total-progress"></td>
+			<td id="next-progress"></td>
+		</tr>
+		<tr>
+			<th>Group size</th>
+			<td id="total-size"></td>
+			<td id="next-size"></td>
+		</tr>
+	</table>
+</body>
+
+</html>
