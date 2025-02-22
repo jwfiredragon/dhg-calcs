@@ -2,71 +2,101 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="main.css" />
+	<link rel="stylesheet" href="style.css" />
 	<script src="scripts.js"></script>
 </head>
 
 <body>
-	<h1>Waves per elite</h1>
+	<div class="centered">
+		<div class="main-box">
+			<h1>Waves per Elite Calculator</h1>
 
-	<table>
-		<tr id="table-row-header">
-			<th></th>
-			<th>Core 1</th>
-		</tr>
-		<tr id="table-row-type">
-			<th>Type</th>
-			<td>
-				<select name="type">
-					<option value="progress">Elite Bait</option>
-					<option value="size">Group Expand</option>
-					<option value="other">Other</option>
-				</select>
-			</td>
-		</tr>
-		<tr id="table-row-rarity">
-			<th>Rarity</th>
-			<td>
-				<select name="rarity">
-					<option value="0">Common</option>
-					<option value="1">Rare</option>
-					<option value="2">Epic</option>
-					<option value="3">Legendary</option>
-					<option value="4">Chaotic</option>
-				</select>
-			</td>
-		</tr>
-		<tr id="table-row-progress">
-			<th>Progress</th>
-			<td><input type="number" name="progress" /></td>
-		</tr>
-		<tr id="table-row-size">
-			<th>Group Size</th>
-			<td><input type="number" name="size" /></td>
-		</tr>
-	</table>
+			<hr />
 
-	<button type="button" onclick="calculate()">Calculate</button>
+			<div class="centered">
+				<table>
+					<tr id="table-row-header">
+						<th></th>
+						<th>Core 1</th>
+					</tr>
+					<tr id="table-row-type">
+						<th class="label">Type</th>
+						<td>
+							<select name="type" class="input">
+								<option value="other">Other</option>
+								<option value="progress">Elite Bait</option>
+								<option value="size">Group Expand</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="table-row-rarity">
+						<th class="label">Rarity</th>
+						<td>
+							<select name="rarity" class="input common" onchange="setColourSelect(this)">
+								<option value="common" class="common">Common</option>
+								<option value="rare" class="rare">Rare</option>
+								<option value="epic" class="epic">Epic</option>
+								<option value="legendary" class="legendary">Legendary</option>
+								<option value="chaotic" class="chaotic">Chaotic</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="table-row-progress">
+						<th class="label">Progress</th>
+						<td>
+							<input type="number" name="progress" class="input" />
+						</td>
+					</tr>
+					<tr id="table-row-size">
+						<th class="label">Group Size</th>
+						<td><input type="number" name="size" class="input" /></td>
+					</tr>
+				</table>
+			</div>
 
-	<p id="current-waves"></p>
+			<div class="centered">
+				<button type="button" onclick="calculate()" id="calculate-button">Calculate</button>
+			</div>
 
-	<table>
-		<tr>
-			<th></th>
-			<th>Current total</th>
-			<th>Next breakpoint</th>
-		</tr>
-		<tr>
-			<th>Progress</th>
-			<td id="total-progress"></td>
-			<td id="next-progress"></td>
-		</tr>
-		<tr>
-			<th>Group size</th>
-			<td id="total-size"></td>
-			<td id="next-size"></td>
-		</tr>
-	</table>
+			<hr />
+
+			<div class="centered" id="error-message">
+				<p>One or more inputs are out of range.</p>
+			</div>
+
+			<div class="centered">
+				<div class="result-wrapper">
+					<p>Waves per elite:&nbsp;</p>
+					<p id="current-waves" class="result"></p>
+				</div>
+			</div>
+
+			<div class="centered">
+				<table id="results-table">
+					<tr>
+						<th></th>
+						<th>Current total</th>
+						<th>Next breakpoint</th>
+					</tr>
+					<tr>
+						<th class="label">Progress</th>
+						<td id="total-progress"></td>
+						<td id="next-progress"></td>
+					</tr>
+					<tr>
+						<th class="label">Group size</th>
+						<td id="total-size"></td>
+						<td id="next-size"></td>
+					</tr>
+				</table>
+			</div>
+
+			<hr />
+
+			<p class="info">Wave counts are estimated from in-game testing and may not be 100% accurate.</p>
+			<p class="info">Contact @jwfiredragon on Discord for questions, corrections, suggestions, etc.</p>
+		</div>
+	</div>
 </body>
 
 </html>

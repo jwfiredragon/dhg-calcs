@@ -1,6 +1,9 @@
 const TOTAL_CORES = 6;
+const RARITY_MAP = ["common", "rare", "epic", "legendary", "chaotic"]
 const ELITE_BAIT_VALS = [20, 25, 30, 40, 50];
 const GROUP_EXPAND_VALS = [20, 25, 30, 40, 50];
+const PROGRESS_TIERS = [4, 10, 16, 25, 40];
+const SIZE_TIERS = [2, 5, 8, 12, 20];
 const BASE_WAVE_SCALE = 0.049;
 
 window.onload = (event) => {
@@ -45,11 +48,12 @@ function calculate() {
 	for (let i = 1; i <= TOTAL_CORES; i++) {
 		const type = typeRow.children[i].firstElementChild.value;
 		const rarity = rarityRow.children[i].firstElementChild.value;
+		const rarityIndex = RARITY_MAP.indexOf(rarity);
 
 		if (type == "progress") {
-			progressTotal += ELITE_BAIT_VALS[Number(rarity)];
+			progressTotal += ELITE_BAIT_VALS[rarityIndex];
 		} else if (type == "size") {
-			sizeTotal += GROUP_EXPAND_VALS[Number(rarity)];
+			sizeTotal += GROUP_EXPAND_VALS[rarityIndex];
 		}
 	}
 
@@ -64,9 +68,35 @@ function calculate() {
 	progressBreakpoint = 10000 / (sizeTotal * BASE_WAVE_SCALE * nextWaves) - progressTotal;
 	sizeBreakpoint = 10000 / (progressTotal * BASE_WAVE_SCALE * nextWaves) - sizeTotal;
 
-	document.getElementById("current-waves").textContent = `Waves per elite: ${currentWaves.toFixed(2)}`;
+	// update display
+	document.getElementById("current-waves").textContent = `${currentWaves.toFixed(2)}`;
 	document.getElementById("total-progress").textContent = `${progressTotal}%`;
 	document.getElementById("total-size").textContent = `${sizeTotal}%`;
 	document.getElementById("next-progress").textContent = `${Math.ceil(progressBreakpoint)}%`;
 	document.getElementById("next-size").textContent = `${Math.ceil(sizeBreakpoint)}%`;
+
+	setColourInputs(progressArr, PROGRESS_TIERS);
+	setColourInputs(sizeArr, SIZE_TIERS);
+
+	document.getElementById("error-message").style.display =
+		(document.getElementsByClassName("error").length > 0) ? "" : "none";
+}
+
+function setColourSelect(self) {
+	self.className = `input ${self.options[self.selectedIndex].className}`;
+}
+
+function setColourInputs(inputArr, map) {
+	inputArr.forEach((i) => {
+		const val = Number(i.value);
+		let rarity = 0;
+
+		// if rarity goes out of bounds, map[rarity] evaluates to undefined, and val > undefined == false
+		// so there's no need for explicit bounds checking
+		while (val > map[rarity]) {
+			rarity++;
+		}
+
+		i.className = `input ${(rarity < RARITY_MAP.length) ? RARITY_MAP[rarity] : "error"}`;
+	});
 }
